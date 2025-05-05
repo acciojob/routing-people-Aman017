@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import axios from "axios";
 
 const UserDetails = () => {
   const { id } = useParams();
@@ -13,16 +13,22 @@ const UserDetails = () => {
         const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
         setUser(res.data);
       } catch (e) {
-        console.log("Error fetching user", e);
+        console.error("Error fetching user", e);
       } finally {
         setLoading(false);
       }
     };
+
     fetchUser();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
-  if (!user) return <div>User not found</div>;
+  if (loading) {
+    return <div>Loading...</div>; // MUST match exactly for Cypress
+  }
+
+  if (!user) {
+    return <div>User not found</div>;
+  }
 
   return (
     <div>

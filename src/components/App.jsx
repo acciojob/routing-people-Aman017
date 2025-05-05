@@ -1,18 +1,15 @@
 import React from "react";
-import './../styles/App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import UserDetails from "./UserDetails";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UserList from "./UserList";
+import UserDetails from "./UserDetails";
 
 const App = () => {
   return (
     <Router>
-      <div>
-        <Switch>
-          <Route exact path="/" component={UserList} />
-          <Route path="/users/:id" component={UserDetails} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path="/" component={UserList} />
+        <Route path="/users/:id" component={UserDetails} />
+      </Switch>
     </Router>
   );
 };
