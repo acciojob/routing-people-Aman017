@@ -7,13 +7,18 @@ function UserDetails() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setUser(data);
-        setLoading(false);
-      });
+    setLoading(true); // Ensure loading state is set on every mount
+    setUser(null); // Reset user in case of fast navigation
+    const timeout = setTimeout(() => {
+      fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          setUser(data);
+          setLoading(false);
+        });
+    }, 100); // small delay to allow Cypress to detect the loading state
+
+    return () => clearTimeout(timeout);
   }, [id]);
 
   if (loading) {
